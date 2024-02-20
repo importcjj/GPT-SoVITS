@@ -10,7 +10,7 @@ is_half = True if is_half_str.lower() == 'true' else False
 is_share_str = os.environ.get("is_share","False")
 is_share= True if is_share_str.lower() == 'true' else False
 
-driver_root=""
+driver_root=os.environ.get("driver_root", "")
 sovits_weight_root="SoVITS_weights" 
 gpt_weight_root="GPT_weights"
 
