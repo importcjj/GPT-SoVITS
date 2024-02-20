@@ -17,6 +17,10 @@ logging.getLogger("charset_normalizer").setLevel(logging.ERROR)
 logging.getLogger("torchaudio._extension").setLevel(logging.ERROR)
 import pdb
 
+import config as global_config
+
+g_config = global_config.Config()
+
 if os.path.exists("./gweight.txt"):
     with open("./gweight.txt", 'r', encoding="utf-8") as file:
         gweight_data = file.read()
@@ -581,11 +585,10 @@ def change_choices():
     SoVITS_names, GPT_names = get_weights_names()
     return {"choices": sorted(SoVITS_names, key=custom_sort_key), "__type__": "update"}, {"choices": sorted(GPT_names, key=custom_sort_key), "__type__": "update"}
 
-
-pretrained_sovits_name = "GPT_SoVITS/pretrained_models/s2G488k.pth"
-pretrained_gpt_name = "GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt"
-SoVITS_weight_root = "SoVITS_weights"
-GPT_weight_root = "GPT_weights"
+pretrained_sovits_name=g_config.pretrained_sovits_path
+pretrained_gpt_name=g_config.pretrained_gpt_path
+SoVITS_weight_root=g_config.sovits_weight_root
+GPT_weight_root=g_config.gpt_weight_root
 os.makedirs(SoVITS_weight_root, exist_ok=True)
 os.makedirs(GPT_weight_root, exist_ok=True)
 

@@ -10,6 +10,10 @@ is_half = True if is_half_str.lower() == 'true' else False
 is_share_str = os.environ.get("is_share","False")
 is_share= True if is_share_str.lower() == 'true' else False
 
+driver_root=""
+sovits_weight_root="SoVITS_weights" 
+gpt_weight_root="GPT_weights"
+
 cnhubert_path = "GPT_SoVITS/pretrained_models/chinese-hubert-base"
 bert_path = "GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large"
 pretrained_sovits_path = "GPT_SoVITS/pretrained_models/s2G488k.pth"
@@ -51,10 +55,10 @@ class Config:
         self.gpt_path = gpt_path
         self.is_half = is_half
 
-        self.cnhubert_path = cnhubert_path
-        self.bert_path = bert_path
-        self.pretrained_sovits_path = pretrained_sovits_path
-        self.pretrained_gpt_path = pretrained_gpt_path
+        self.cnhubert_path = os.path.join(driver_root, cnhubert_path)
+        self.bert_path = os.path.join(driver_root, bert_path)
+        self.pretrained_sovits_path = os.path.join(driver_root, pretrained_sovits_path)
+        self.pretrained_gpt_path = os.path.join(driver_root, pretrained_gpt_path)
 
         self.exp_root = exp_root
         self.python_exec = python_exec
@@ -66,3 +70,6 @@ class Config:
         self.webui_port_subfix = webui_port_subfix
 
         self.api_port = api_port
+
+        self.sovits_weight_root = os.path.join(driver_root, sovits_weight_root)
+        self.gpt_weight_root = os.path.join(driver_root, gpt_weight_root)

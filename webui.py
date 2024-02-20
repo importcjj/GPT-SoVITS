@@ -6,6 +6,10 @@ import platform
 import psutil
 import signal
 
+import config as global_config
+
+g_config = global_config.Config()
+
 warnings.filterwarnings("ignore")
 torch.manual_seed(233333)
 tmp = os.path.join(now_dir, "TEMP")
@@ -87,8 +91,8 @@ else:
     default_batch_size = 1
 gpus = "-".join([i[0] for i in gpu_infos])
 
-pretrained_sovits_name="GPT_SoVITS/pretrained_models/s2G488k.pth"
-pretrained_gpt_name="GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt"
+pretrained_sovits_name=g_config.pretrained_sovits_path
+pretrained_gpt_name=g_config.pretrained_gpt_path
 def get_weights_names():
     SoVITS_names = [pretrained_sovits_name]
     for name in os.listdir(SoVITS_weight_root):
@@ -97,8 +101,8 @@ def get_weights_names():
     for name in os.listdir(GPT_weight_root):
         if name.endswith(".ckpt"): GPT_names.append(name)
     return SoVITS_names,GPT_names
-SoVITS_weight_root="SoVITS_weights"
-GPT_weight_root="GPT_weights"
+SoVITS_weight_root=g_config.sovits_weight_root
+GPT_weight_root=g_config.gpt_weight_root
 os.makedirs(SoVITS_weight_root,exist_ok=True)
 os.makedirs(GPT_weight_root,exist_ok=True)
 SoVITS_names,GPT_names = get_weights_names()
